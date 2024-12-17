@@ -3,7 +3,6 @@ def get_lowest_bits(n, number_of_bits): #n=False ....
     mask = (1 << number_of_bits) - 1  #=4294967295 32位的1
     return n & mask
 
-
 class MT19937:
     """This implementation resembles the one of the Wikipedia pseudo-code."""
     W, N, M, R = 32, 624, 397, 31

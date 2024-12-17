@@ -1,5 +1,5 @@
 import base64
-from S3C18_AES_CTR import aes_ctr_process,xor_bytes
+from S3C18_AES_CTR import aes_ctr_encrypt,xor_bytes
 import secrets
 from S1.Challenge_6_Break_repeating_key_XOR import get_english_score
 if __name__ == '__main__':
@@ -7,7 +7,7 @@ if __name__ == '__main__':
     block_size=16
     aes_key=secrets.token_bytes(block_size)
     base64bytes_list=[base64.b64decode(line.strip()) for line in open("resources/S3C19_input.txt", 'r', encoding='utf-8')]
-    encrypt_result_list=[aes_ctr_process(line_b,aes_key,nonce)[0] for line_b in base64bytes_list]
+    encrypt_result_list=[aes_ctr_encrypt(line_b, aes_key, nonce)[0] for line_b in base64bytes_list]
     print("encrypt_result_list:"+str(encrypt_result_list))
     # attack begin--------------------------------
     guess_keystream=[]

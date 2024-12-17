@@ -8,7 +8,7 @@ def xor_bytes(plaintext_binary,keystream_binary):
         result.append(plaintext_binary[i]^keystream_binary[i])
     return b''.join([i.to_bytes(1,'big') for i in result])
 
-def aes_ctr_process(binary_data, key_bytes, nonce=None):
+def aes_ctr_encrypt(binary_data, key_bytes, nonce=None):
     block_size=16
     encrypt_result=b''
     if nonce is None:
@@ -23,16 +23,15 @@ def aes_ctr_process(binary_data, key_bytes, nonce=None):
         encrypt_result+=xor_bytes(binary_data[start:end],keystream)
     return encrypt_result,nonce
 
-def aes_ctr_decrypt(binary_data,key_bytes,nonce_byte):
-    block_size=16
-    decrypt_result=b''
+def aes_ctr_decrypt(binary_data,key_bytes,nonce):
+   return aes_ctr_encrypt(binary_data,key_bytes,nonce)
 
 
 if __name__ == '__main__':
 
     print(xor_bytes(b'111',b'1111'))
-    encrypt_result,nonce_bytes=aes_ctr_process(b'aaaabbbbbcccaaaacdddd', b'"YELLOW SUBMARINE"')
+    encrypt_result,nonce_bytes=aes_ctr_encrypt(b'aaaabbbbbcccaaaacdddd', b'"YELLOW SUBMARINE"')
     print('encrypt_result:'+str(encrypt_result))
     print('nonce_bytes:'+str(nonce_bytes))
-    decrypt_result,nonce_bytes=aes_ctr_process(encrypt_result, b'"YELLOW SUBMARINE"', nonce_bytes)
+    decrypt_result,nonce_bytes=aes_ctr_encrypt(encrypt_result, b'"YELLOW SUBMARINE"', nonce_bytes)
     print('decrypt_result:'+str(decrypt_result))

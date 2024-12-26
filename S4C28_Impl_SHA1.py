@@ -65,10 +65,8 @@ def sha1(message, ml=None, h0=0x67452301, h1=0xEFCDAB89, h2=0x98BADCFE, h3=0x103
 
 
 if __name__ == '__main__':
-    input=b"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-    sha1_result=sha1(input)
-    office_sha1_result=hashlib.sha1(input).hexdigest()
-    print(sha1_result)
-    print(office_sha1_result)
-    assert office_sha1_result==sha1_result
-    print(len(sha1_result))
+    for i in range(1000):
+        input=b"b"*i
+        sha1_result=sha1(input)
+        office_sha1_result=hashlib.sha1(input).hexdigest()
+        assert office_sha1_result==sha1_result
